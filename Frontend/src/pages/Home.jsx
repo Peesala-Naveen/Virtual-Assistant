@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import { userDataContext } from "../context/userContext.jsx";
+import { userDataContext } from "../context/UserContext.jsx";
 import axios from "axios";
 import { FaBars, FaMicrophone } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
