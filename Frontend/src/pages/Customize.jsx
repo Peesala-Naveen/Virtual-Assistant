@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import Card from '../components/card.jsx'
+import Card from '../components/Card.jsx'
 import './Customize.css'
 import assist1 from '../assets/assist1.jpeg'
 import assist2 from '../assets/assist2.jpg'
