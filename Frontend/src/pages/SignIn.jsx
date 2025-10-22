@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import '../styles/sign.css'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-import { userDataContext } from '../context/userContext.jsx'
+import { userDataContext } from '../context/UserContext.jsx'
 import axios from 'axios'
 
 function SignIn() {
