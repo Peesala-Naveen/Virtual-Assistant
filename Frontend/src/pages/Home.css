@@ -1,0 +1,531 @@
+.home-bg {
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to bottom, #000b58 0%, #000 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 24px 20px;
+    position: relative;
+
+}
+
+.home-container {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    color: #fff;
+    margin-top: 8px;
+}
+
+.home-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, #ffd700 40%, #00cfff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+}
+
+.home-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.15rem;
+    margin-bottom: 28px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.home-cta {
+    display: inline-block;
+    padding: 12px 36px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000b58;
+    background: #ffd700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.18s, box-shadow 0.18s;
+    text-decoration: none;
+}
+
+.home-cta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+}
+
+.assistant-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    margin: 20px auto;
+    max-width: 760px;
+}
+
+.assistant-image {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 3px solid rgba(255, 215, 0, 0.9);
+    background: #fff;
+}
+
+.assistant-placeholder {
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffd700;
+    font-size: 3rem;
+    font-weight: 700;
+    border: 2px dashed rgba(255, 215, 0, 0.9);
+}
+
+.assistant-info {
+    text-align: left;
+    color: #fff;
+    position: relative;
+    padding-bottom: 56px;
+}
+
+.assistant-info {
+    position: relative;
+    /* ensure absolute children position relative to this box */
+}
+
+.assistant-info .home-cta {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    /* keep the visual style of .home-cta but ensure padding/size fit inside assistant-info */
+    padding: 8px 18px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    z-index: 5;
+    /* preserve base colors from .home-cta */
+    color: #000b58;
+    background: #ffd700;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.assistant-name {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffd700;
+}
+
+.assistant-desc {
+    margin: 8px 0 14px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+}
+
+.assistant-info .home-cta {
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    padding: 10px 24px;
+    font-size: 1rem;
+}
+
+.logout-btn {
+    position: absolute;
+    top: 16px;
+    right: 50px;
+    padding: 8px 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: white;
+    background: red;
+    border: none;
+    border-radius: 8px;
+    margin-top: 40px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.logout-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.assistant-flash {
+    box-shadow: 0 0 0 4px #00ffea, 0 0 16px 8px #00ffea;
+    transition: box-shadow 0.2s;
+}
+
+/* Optionally, you can add a subtle animation for a more dynamic flash: */
+@keyframes assistant-flash-anim {
+    0% {
+        box-shadow: 0 0 0 0 #00ffea, 0 0 0 0 #00ffea;
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px #00ffea, 0 0 24px 12px #00ffea;
+    }
+
+    100% {
+        box-shadow: 0 0 0 4px #00ffea, 0 0 16px 8px #00ffea;
+    }
+}
+
+.assistant-flash {
+    animation: assistant-flash-anim 0.6s;
+}
+
+.assistant-speaking-flash {
+    box-shadow: 0 0 0 4px #ffd700, 0 0 24px 12px #ffd700;
+    animation: assistant-speaking-anim 0.8s linear infinite alternate;
+}
+
+@keyframes assistant-speaking-anim {
+    0% {
+        box-shadow: 0 0 0 2px #ffd700, 0 0 8px 2px #ffd700;
+    }
+
+    100% {
+        box-shadow: 0 0 0 8px #ffd700, 0 0 32px 16px #ffd700;
+    }
+}
+
+.history-panel {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 320px;
+    max-width: 90vw;
+    height: 80vh;
+    background: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    border-left: 2px solid #ffd700;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    padding: 24px 18px 64px 18px;
+    overflow-y: auto;
+    transition: right 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.history-panel h3 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.history-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    width: 100%;
+    font-size: 1rem;
+    text-align: left;
+    padding-right: 8px;
+}
+
+.history-list ul {
+    list-style: decimal inside;
+    padding-left: 0;
+    margin: 0;
+}
+
+.history-list li {
+    margin-bottom: 10px;
+    word-break: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topbar-btns {
+    position: absolute;
+    top: 16px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.logout-btn,
+.get-history-btn {
+    white-space: nowrap;
+    min-width: 120px;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.get-history-btn {
+    padding: 12px 32px;
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: #fff;
+    background: #00bfff;
+    border: none;
+    margin-right: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+}
+
+.get-history-btn:hover {
+    background: #0099cc;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.menu-icon-btn {
+    display: none;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: #ffd700;
+    font-size: 2.1rem;
+    z-index: 20;
+    cursor: pointer;
+}
+
+.mobile-menu-panel {
+    display: none;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .topbar-btns {
+        display: none;
+    }
+
+    .menu-icon-btn {
+        display: block;
+    }
+
+    .mobile-menu-panel {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 16px;
+        background: rgba(0, 0, 0, 0.97);
+        border-radius: 12px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+        padding: 18px 16px;
+        gap: 18px;
+        z-index: 100;
+        min-width: 160px;
+        align-items: stretch;
+    }
+
+    .mobile-menu-panel .logout-btn,
+    .mobile-menu-panel .get-history-btn {
+        position: static;
+        width: 100%;
+        margin: 0;
+        font-size: 1.08rem;
+    }
+
+    .assistant-info .home-cta {
+        position: static;
+        display: inline-block;
+        margin-top: 12px;
+        width: auto;
+        align-self: center;
+    }
+
+    .assistant-info .assistant-controls {
+        position: static;
+        justify-content: center;
+        margin-top: 12px;
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 900px) {
+    .home-title {
+        font-size: 2.2rem;
+    }
+
+    .home-subtitle {
+        font-size: 1rem;
+    }
+
+    .logout-btn {
+        right: 5px;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-title {
+        font-size: 1.6rem;
+    }
+
+    .home-cta {
+        padding: 10px 22px;
+        font-size: 1rem;
+    }
+
+    .assistant-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 14px;
+    }
+
+    .assistant-info {
+        text-align: center;
+        position: relative;
+        padding-bottom: 18px;
+    }
+
+    .assistant-info .home-cta {
+        position: static;
+        margin-top: 12px;
+    }
+
+    .assistant-image,
+    .assistant-placeholder {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+.history-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #ffd700;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 101;
+    padding: 2px;
+    transition: color 0.15s;
+}
+
+.history-close-btn:hover {
+    color: #ff5555;
+}
+
+.history-clear-btn {
+    display: block;
+    position: sticky;
+    bottom: 12px;
+    width: calc(100% - 36px);
+    margin: 12px 18px 0;
+    padding: 10px 12px;
+    background: #e04545;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    transition: background 0.15s, transform 0.12s;
+    align-self: center;
+}
+
+.history-clear-btn:hover {
+    background: #c93b3b;
+    transform: translateY(-2px);
+}
+
+.command-text {
+    color: #ffd700;
+    /* yellow */
+}
+
+/* Interaction panel: responsive text and layout */
+.interaction-panel {
+    max-width: 760px;
+    margin: 12px auto 0;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+/* default paragraph styles inside interaction panel */
+.interaction-panel p {
+    margin: 6px 0;
+    line-height: 1.3;
+    white-space: normal;
+    word-break: break-word;
+    /* responsive font scaling */
+    font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+}
+
+/* first paragraph (user command) in the panel should be yellow */
+.interaction-panel p:first-of-type {
+    color: #ffd700;
+    /* yellow */
+    font-weight: 600;
+}
+
+/* assistant response color (second paragraph) */
+.interaction-panel p:nth-of-type(2) {
+    color: #00ffe7;
+    font-weight: 500;
+}
+
+/* remove assistant-controls style (no longer used) */
+
+/* Style the voice-active line to show mic inline with a small gap */
+.voice-active {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+/* mic icon shown when recognition is active (placed beside the voice-active text) */
+.voice-mic {
+    color: #00ff6a;
+    font-size: 1.05rem;
+    margin-left: 4px;
+    animation: mic-pulse 1s infinite ease-in-out;
+}
+
+/* reuse existing mic-pulse keyframes */
+@keyframes mic-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.95;
+    }
+
+    50% {
+        transform: scale(1.18);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.95;
+    }
+}
+
+/* On small screens keep spacing reasonable */
+@media (max-width: 600px) {
+    .voice-mic {
+        font-size: 1.1rem;
+    }
+}
