@@ -12,7 +12,7 @@ const geminiResponse = geminiModule?.default || geminiModule?.geminiResponse || 
 
 const app = express()
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://virtual-assistant-frontend1.onrender.com',
     credentials: true
 }))
 const port = process.env.PORT || 8000
