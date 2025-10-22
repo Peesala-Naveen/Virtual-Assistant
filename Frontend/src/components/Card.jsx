@@ -1,5 +1,6 @@
 import React from 'react'
 import './Card.css'
+import { userDataContext } from '../context/UserContext.jsx'
 
 function Card({ image, selected, onClick }) {
     return (
