@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect, useRef } from 'react'
-import axios from 'axios'
-export const userDataContext = createContext();
+import { createContext, useState, useEffect, useRef } from "react";
+import axios from "axios";
 
+export const userDataContext = createContext(null);
 
-function UserContext({ children }) {
+export default function UserContext({ children }) {
     const serverURL = import.meta.env.VITE_BACKEND_URL || "https://virtual-assistant-backend-w5hv.onrender.com";
     console.log("Server URL:", serverURL);
     const [userData, setUserData] = useState(null);
