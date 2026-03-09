@@ -6,11 +6,11 @@ import SignIn from './pages/SignIn.jsx'
 import Customize from './pages/Customize.jsx'
 import Customize2 from './pages/Customize2.jsx'
 import Home from './pages/Home.jsx'
-import { userDataContext } from './context/userContext.jsx'
+import { UserContext } from "./context/UserContext.jsx"
 
 
 function App() {
-  const { userData } = useContext(userDataContext);
+  const { userData } = useContext(UserContext);
   return (
     <Routes>
       <Route path="/" element={(userData?.assistantImage && userData?.assistantName) ? <Home /> : <Navigate to="/customize" />} />
