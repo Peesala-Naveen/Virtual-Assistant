@@ -205,7 +205,7 @@ function Home() {
         if (raw == null) return null;
         const stripFences = (s) => {
             if (typeof s !== "string") return s;
-            const match = s.match(/```(?:\w+\n)?([\s\S]*?)```/);
+            const match = s.match(/```(?:\w*\n)?([\s\S]*?)```/);
             return match ? match[1].trim() : s.trim();
         };
         try {
