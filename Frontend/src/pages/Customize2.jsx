@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import './Customize2.css'
-import { userDataContext } from '../context/userContext.jsx'
+import { userDataContext } from '../context/UserContext.jsx'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 

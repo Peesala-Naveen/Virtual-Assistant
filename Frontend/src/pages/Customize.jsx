@@ -8,7 +8,7 @@ import assist4 from '../assets/assist4.jpeg'
 import assist5 from '../assets/assist5.jpeg'
 import assist6 from '../assets/assist6.jpeg'
 import assist7 from '../assets/assist7.jpeg'
-import { userDataContext } from '../context/userContext.jsx'
+import { userDataContext } from '../context/UserContext.jsx'
 import { useNavigate } from 'react-router-dom'
 
 const initialImages = [

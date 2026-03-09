@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import '../styles/sign.css'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-import { userDataContext } from '../context/userContext.jsx'
+import { UserContext } from "../context/UserContext.jsx";
 import axios from 'axios'
 
 
@@ -11,7 +11,7 @@ function SignUp() {
     const [loading, setLoading] = useState(false)
     const [emailExists, setEmailExists] = useState(false)
     const [checkingEmail, setCheckingEmail] = useState(false)
-    const { serverURL, userData, setUserData } = useContext(userDataContext);
+    const { serverURL, userData, setUserData } = useContext(UserContext);
     const navigate = useNavigate()
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
