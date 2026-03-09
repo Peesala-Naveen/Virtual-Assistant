@@ -1,0 +1,109 @@
+.customize2-bg {
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to bottom, #000b58 0%, #000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.customize2-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.customize2-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffd700;
+    margin-bottom: 32px;
+    text-shadow: 0 2px 16px rgba(255, 255, 255, 0.15);
+    text-align: center;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ffd700 40%, #00cfff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.customize2-input {
+    width: 400px;
+    max-width: 90vw;
+    padding: 14px 18px;
+    font-size: 1.3rem;
+    border-radius: 15px;
+    border: 2px solid #ffd700;
+    outline: none;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(31, 38, 135, 0.15);
+    transition: border-color 0.2s;
+}
+
+.customize2-input:focus {
+    border-color: #00cfff;
+}
+
+.customize2-next-btn {
+    margin-top: 40px;
+    display: block;
+    padding: 16px 48px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(90deg, #ffd700 40%, #00cfff 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(31, 38, 135, 0.25);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 1px;
+}
+
+.customize2-next-btn:hover {
+    background: linear-gradient(90deg, #00cfff 40%, #ffd700 100%);
+    color: #222;
+    transform: scale(1.08);
+    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.25);
+}
+
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    border-top: 3px solid #000b58;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .customize2-title {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+    }
+
+    .customize2-input {
+        font-size: 1rem;
+        padding: 10px 12px;
+        width: 90vw;
+    }
+
+    .customize2-next-btn {
+        font-size: 1rem;
+        padding: 10px 24px;
+        margin-top: 24px;
+    }
+}

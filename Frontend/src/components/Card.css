@@ -1,0 +1,116 @@
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: 32px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.card:hover {
+    border-color: #ffd700;
+    box-shadow: 0 12px 32px 0 rgba(255, 215, 0, 0.25);
+    transform: translateZ(1px) scale(1.04);
+}
+
+.card-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(31, 38, 135, 0.07);
+    border: 2px solid #ffd700;
+    background: #fff;
+}
+
+.plus-card {
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px dashed #ffd700;
+    color: #ffd700;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: 250px;
+    min-width: 300px;
+    width: 180px;
+    height: 180px;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    display: flex;
+}
+
+.plus-card:hover {
+    border-color: #00cfff;
+    box-shadow: 0 12px 32px 0 rgba(0, 207, 255, 0.15);
+    transform: translateZ(1px) scale(1.08);
+}
+
+.plus-icon {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ffd700;
+    user-select: none;
+}
+
+.card.selected {
+    box-shadow: 0 0 0 4px #00cfff;
+}
+
+.card.selected .card-image {
+    border: 4px solid #00cfff;
+}
+
+@media (max-width: 900px) {
+
+    .card,
+    .plus-card {
+        max-width: 220px;
+        padding: 20px;
+    }
+
+    .card-image,
+    .plus-card {
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .card,
+    .plus-card {
+        max-width: 90vw;
+        padding: 12px;
+    }
+
+    .card-image,
+    .plus-card {
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
+        min-height: 80px;
+    }
+}
+
+@media (min-width: 900px) {
+    .customize-card-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+        justify-items: center;
+        align-items: center;
+    }
+}
