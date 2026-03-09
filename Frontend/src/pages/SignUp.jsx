@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import '../styles/sign.css'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from "../context/UserContext.jsx";
+import UserContext from "../context/UserContext.jsx";
 import axios from 'axios'
 
 
