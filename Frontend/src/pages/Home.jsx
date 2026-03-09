@@ -10,7 +10,10 @@ function Home() {
     const { userData, selectedImage, setUserData, serverURL } =
         useContext(userDataContext);
     const navigate = useNavigate();
-
+    if (!serverURL) {
+        console.error("Server URL is not defined");
+        return;
+    }
     const assistantName = (userData?.assistantName || "Your Assistant").trim();
     const assistantImage = userData?.assistantImage || selectedImage || null;
     const username = userData?.name || "Guest";
@@ -92,7 +95,7 @@ function Home() {
                 setHistory([]);
                 return;
             }
-            const url = `${serverURL || ''}/api/user/history/${userData._id}`;
+            const url = `${serverURL}/api/user/history/${userData._id}`;
             const resp = await axios.get(url, { withCredentials: true, timeout: 8000 });
 
             // handle unexpected status codes
@@ -130,7 +133,7 @@ function Home() {
         const ok = window.confirm("Clear all saved assistant commands from your history? This cannot be undone.");
         if (!ok) return;
         try {
-            const url = `${serverURL || ''}/api/user/history/clear`;
+            const url = `${serverURL}/api/user/history/clear`;
             console.log('Clearing history via', url);
             await axios.post(url, { userId: userData._id }, { withCredentials: true });
             setHistory([]); // update UI
@@ -189,7 +192,7 @@ function Home() {
         // Push the actual user command (not just userInput) to history
         if (userData && userData._id && originalCommand) {
             try {
-                const pushUrl = `${serverURL || ''}/api/user/history`;
+                const pushUrl = `${serverURL / api / user / history`;
                 await axios.post(pushUrl, { userId: userData._id, command: originalCommand }, { withCredentials: true });
             } catch (e) {
                 console.warn('Could not push history (action):', e?.message || e);
@@ -202,7 +205,7 @@ function Home() {
         if (raw == null) return null;
         const stripFences = (s) => {
             if (typeof s !== "string") return s;
-            const match = s.match(/```(?:\w*\n)?([\s\S]*?)```/);
+            const match = s.match(/```(?: \w *\n) ? ([\s\S] *?)```/);
             return match ? match[1].trim() : s.trim();
         };
         try {
@@ -214,7 +217,7 @@ function Home() {
                     if (parsed.text) return parsed.text.trim();
                     raw = parsed;
                 } catch {
-                    return cleaned.replace(/^[\s`]+|[\s`]+$/g, "").trim() || null;
+                    return cleaned.replace(/^[\s`]+| [\s`]+$/g, "").trim() || null;
                 }
             }
             if (typeof raw === "object") {
@@ -235,7 +238,7 @@ function Home() {
         if (typeof raw !== "string") return null;
 
         // Remove code fences and surrounding text, then try to find a JSON object substring
-        const fenceMatch = raw.match(/```(?:\w*\n)?([\s\S]*?)```/);
+        const fenceMatch = raw.match(/```(?: \w *\n) ? ([\s\S] *?)```/);
         const candidate = fenceMatch ? fenceMatch[1].trim() : raw.trim();
 
         // Try direct JSON parse of candidate
@@ -347,218 +350,218 @@ function Home() {
             let handled = false;
 
             try {
-                const resp = await axios.get(`${serverURL || ""}/`, {
-                    params: { prompt: command, userName: username, assistantName },
-                    withCredentials: true,
+                const resp = await axios.get(`${ serverURL } / `, {
+            params: { prompt: command, userName: username, assistantName },
+            withCredentials: true,
                 });
 
-                // Resp is available here; parse and act inside this try block
-                // extract speakable text
-                speakable = extractSpeakable(resp.data);
+        // Resp is available here; parse and act inside this try block
+        // extract speakable text
+        speakable = extractSpeakable(resp.data);
 
-                // parse JSON-like assistant output if present
-                const parsed = parseAssistantOutput(resp.data) || {};
+        // parse JSON-like assistant output if present
+        const parsed = parseAssistantOutput(resp.data) || {};
 
-                // Determine action intent (prefer parsed.type)
-                const typeStr = String(parsed.type || "").toLowerCase();
-                if (["google_search", "open_calculator", "calculator_open", "open_instagram", "open_youtube", "youtube_search", "youtube_play", "open_facebook", "show_weather"].includes(typeStr)) {
-                    shouldOpenTab = true;
-                }
-
-                // fallback heuristic if no explicit type
-                if (!shouldOpenTab && !typeStr) {
-                    const lc = command.toLowerCase();
-                    shouldOpenTab = actionKeywords.some(k => lc.includes(k));
-                }
-
-                // if we pre-opened a tab but model doesn't require it, close it
-                if (!shouldOpenTab && preTab) {
-                    try { preTab.close(); } catch (_) { }
-                    preTab = null;
-                }
-
-                // prepare payload to send to handler (parsed object preferred)
-                const actionPayload = Object.keys(parsed).length ? parsed : resp.data;
-
-                // call handler (will open tab if needed)
-                await handleCommand(actionPayload, preTab, command);
-                handled = true;
-
-                // If not handled (defensive), set speakable response if any
-                if (!handled && speakable) {
-                    setCurrentResponse(speakable);
-                }
-            } catch (err) {
-                console.error("🚨 Server call failed:", err?.response?.data || err.message || err);
-                setCurrentResponse("Sorry, I couldn't find the answer.");
-            }
-
-            // if still not handled, speak fallback and push history
-            if (!handled) {
-                if (speakable) {
-                    await speak(speakable);
-                } else {
-                    await speak("Sorry, I couldn't find the answer.");
-                }
-                // Push the non-action user command to history as well
-                try {
-                    if (userData && userData._id && command) {
-                        const pushUrl = `${serverURL || ''}/api/user/history`;
-                        await axios.post(pushUrl, { userId: userData._id, command }, { withCredentials: true });
-                    }
-                } catch (pushErr) {
-                    console.warn('Could not push history (non-action):', pushErr?.message || pushErr);
-                }
-            }
-
-            isSpeakingRef.current = false;
-            setFlash(false); // blue flash OFF after command is handled
-            try {
-                recognition.start();
-            } catch (_) { }
-        };
-
-        recognitionRef.current = recognition;
-        try {
-            recognition.start();
-        } catch (e) {
-            console.warn("Could not start recognition:", e);
+        // Determine action intent (prefer parsed.type)
+        const typeStr = String(parsed.type || "").toLowerCase();
+        if (["google_search", "open_calculator", "calculator_open", "open_instagram", "open_youtube", "youtube_search", "youtube_play", "open_facebook", "show_weather"].includes(typeStr)) {
+            shouldOpenTab = true;
         }
 
-        return () => {
-            try {
-                recognition.onresult = null;
-                recognition.onend = null;
-                recognition.onerror = null;
-                recognition.onstart = null;
-                recognition.stop();
-            } catch (_) { }
-            recognitionRef.current = null;
-            setFlash(false);
-            setListening(false);
-        };
+        // fallback heuristic if no explicit type
+        if (!shouldOpenTab && !typeStr) {
+            const lc = command.toLowerCase();
+            shouldOpenTab = actionKeywords.some(k => lc.includes(k));
+        }
+
+        // if we pre-opened a tab but model doesn't require it, close it
+        if (!shouldOpenTab && preTab) {
+            try { preTab.close(); } catch (_) { }
+            preTab = null;
+        }
+
+        // prepare payload to send to handler (parsed object preferred)
+        const actionPayload = Object.keys(parsed).length ? parsed : resp.data;
+
+        // call handler (will open tab if needed)
+        await handleCommand(actionPayload, preTab, command);
+        handled = true;
+
+        // If not handled (defensive), set speakable response if any
+        if (!handled && speakable) {
+            setCurrentResponse(speakable);
+        }
+    } catch (err) {
+        console.error("🚨 Server call failed:", err?.response?.data || err.message || err);
+        setCurrentResponse("Sorry, I couldn't find the answer.");
+    }
+
+    // if still not handled, speak fallback and push history
+    if (!handled) {
+        if (speakable) {
+            await speak(speakable);
+        } else {
+            await speak("Sorry, I couldn't find the answer.");
+        }
+        // Push the non-action user command to history as well
+        try {
+            if (userData && userData._id && command) {
+                const pushUrl = `${ serverURL } / api / user / history`;
+                await axios.post(pushUrl, { userId: userData._id, command }, { withCredentials: true });
+            }
+        } catch (pushErr) {
+            console.warn('Could not push history (non-action):', pushErr?.message || pushErr);
+        }
+    }
+
+    isSpeakingRef.current = false;
+    setFlash(false); // blue flash OFF after command is handled
+    try {
+        recognition.start();
+    } catch (_) { }
+};
+
+recognitionRef.current = recognition;
+try {
+    recognition.start();
+} catch (e) {
+    console.warn("Could not start recognition:", e);
+}
+
+return () => {
+    try {
+        recognition.onresult = null;
+        recognition.onend = null;
+        recognition.onerror = null;
+        recognition.onstart = null;
+        recognition.stop();
+    } catch (_) { }
+    recognitionRef.current = null;
+    setFlash(false);
+    setListening(false);
+};
     }, [activated, assistantName, serverURL, username]);
 
-    // 🟢 Enable voice
-    const enableVoice = () => {
-        try {
-            window.speechSynthesis.speak(new SpeechSynthesisUtterance(" "));
-            setActivated(true);
-        } catch (e) {
-            console.error("Speech unlock failed:", e);
-        }
-    };
+// 🟢 Enable voice
+const enableVoice = () => {
+    try {
+        window.speechSynthesis.speak(new SpeechSynthesisUtterance(" "));
+        setActivated(true);
+    } catch (e) {
+        console.error("Speech unlock failed:", e);
+    }
+};
 
-    return (
-        <div className="home-bg">
-            {/* Responsive top-right menu */}
-            <div className="topbar-btns">
-                <button className="logout-btn" onClick={handleLogout}>
+return (
+    <div className="home-bg">
+        {/* Responsive top-right menu */}
+        <div className="topbar-btns">
+            <button className="logout-btn" onClick={handleLogout}>
+                Logout
+            </button>
+            <button
+                className="get-history-btn"
+                onClick={handleGetHistory}
+                disabled={historyLoading}
+                aria-busy={historyLoading}
+            >
+                {historyLoading ? "Loading..." : (showHistory ? "Hide History" : "Get History")}
+            </button>
+        </div>
+        {/* Hamburger menu for mobile */}
+        <button className="menu-icon-btn" onClick={() => setMenuOpen((v) => !v)}>
+            <FaBars />
+        </button>
+        {menuOpen && (
+            <div className="mobile-menu-panel">
+                <button className="logout-btn" onClick={() => { setMenuOpen(false); handleLogout(); }}>
                     Logout
                 </button>
-                <button
-                    className="get-history-btn"
-                    onClick={handleGetHistory}
-                    disabled={historyLoading}
-                    aria-busy={historyLoading}
-                >
-                    {historyLoading ? "Loading..." : (showHistory ? "Hide History" : "Get History")}
+                <button className="get-history-btn" onClick={() => { setMenuOpen(false); handleGetHistory(); }}>
+                    {showHistory ? "Hide History" : "Get History"}
                 </button>
             </div>
-            {/* Hamburger menu for mobile */}
-            <button className="menu-icon-btn" onClick={() => setMenuOpen((v) => !v)}>
-                <FaBars />
-            </button>
-            {menuOpen && (
-                <div className="mobile-menu-panel">
-                    <button className="logout-btn" onClick={() => { setMenuOpen(false); handleLogout(); }}>
-                        Logout
-                    </button>
-                    <button className="get-history-btn" onClick={() => { setMenuOpen(false); handleGetHistory(); }}>
-                        {showHistory ? "Hide History" : "Get History"}
-                    </button>
-                </div>
+        )}
+        <div className="home-container">
+            <h1 className="home-title">Virtual Assistant</h1>
+            <p className="home-subtitle">Hi {username} — meet your assistant</p>
+            {!activated ? (
+                <button className="home-cta" onClick={enableVoice}>
+                    🎤 Activate Voice Assistant
+                </button>
+            ) : (
+                <p className="voice-active">
+                    🎧 Listening... Say "{assistantName}" {listening && <FaMicrophone className="voice-mic" />}
+                </p>
             )}
-            <div className="home-container">
-                <h1 className="home-title">Virtual Assistant</h1>
-                <p className="home-subtitle">Hi {username} — meet your assistant</p>
-                {!activated ? (
-                    <button className="home-cta" onClick={enableVoice}>
-                        🎤 Activate Voice Assistant
-                    </button>
+            <div className={`assistant - card${ flash? " assistant-flash": "" }${ speakingFlash? " assistant-speaking-flash": "" } `}>
+                {assistantImage ? (
+                    <img src={assistantImage} alt={assistantName} className="assistant-image" />
                 ) : (
-                    <p className="voice-active">
-                        🎧 Listening... Say "{assistantName}" {listening && <FaMicrophone className="voice-mic" />}
-                    </p>
+                    <div className="assistant-placeholder">?</div>
                 )}
-                <div className={`assistant-card${flash ? " assistant-flash" : ""}${speakingFlash ? " assistant-speaking-flash" : ""}`}>
-                    {assistantImage ? (
-                        <img src={assistantImage} alt={assistantName} className="assistant-image" />
-                    ) : (
-                        <div className="assistant-placeholder">?</div>
-                    )}
-                    <div className="assistant-info">
-                        <h2 className="assistant-name">{assistantName}</h2>
-                        <p className="assistant-desc">
-                            This is {assistantName}. You can customize me by clicking below.
-                        </p>
-                        <button className="home-cta" onClick={handleClick}>
-                            {userData ? "Customize Assistant" : "Sign In to Customize"}
-                        </button>
-                    </div>
-                </div>
-                {/* User command and assistant response below the assistant info box */}
-                <div className="interaction-panel">
-                    <p className="command-text">
-                        {currentCommand && <span><b>You:</b> {currentCommand}</span>}
+                <div className="assistant-info">
+                    <h2 className="assistant-name">{assistantName}</h2>
+                    <p className="assistant-desc">
+                        This is {assistantName}. You can customize me by clicking below.
                     </p>
-                    <p className="response-text">
-                        {currentResponse && <span><b>Assistant:</b> {currentResponse}</span>}
-                    </p>
+                    <button className="home-cta" onClick={handleClick}>
+                        {userData ? "Customize Assistant" : "Sign In to Customize"}
+                    </button>
                 </div>
             </div>
-            {showHistory && (
-                <div className="history-panel">
-                    <button
-                        className="history-close-btn"
-                        onClick={() => setShowHistory(false)}
-                        aria-label="Close history"
-                    >
-                        <IoMdClose size={28} />
-                    </button>
-                    <h3>User Command History</h3>
-                    <div className="history-list">
-                        {historyLoading ? (
-                            <p>Loading history...</p>
-                        ) : historyError ? (
-                            <div>
-                                <p className="history-error-text">Could not load history: {historyError}</p>
-                                <button
-                                    className="history-retry-btn"
-                                    onClick={fetchHistory}
-                                >
-                                    Retry
-                                </button>
-                            </div>
-                        ) : history.length === 0 ? (
-                            <p>No history found.</p>
-                        ) : (
-                            <ul>
-                                {history.map((cmd, idx) => (
-                                    <li key={idx} title={cmd}>{cmd}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-
-                    {/* Clear button at bottom */}
-                    <button className="history-clear-btn" onClick={clearHistory}>
-                        Clear History
-                    </button>
-                </div>
-            )}
+            {/* User command and assistant response below the assistant info box */}
+            <div className="interaction-panel">
+                <p className="command-text">
+                    {currentCommand && <span><b>You:</b> {currentCommand}</span>}
+                </p>
+                <p className="response-text">
+                    {currentResponse && <span><b>Assistant:</b> {currentResponse}</span>}
+                </p>
+            </div>
         </div>
-    );
+        {showHistory && (
+            <div className="history-panel">
+                <button
+                    className="history-close-btn"
+                    onClick={() => setShowHistory(false)}
+                    aria-label="Close history"
+                >
+                    <IoMdClose size={28} />
+                </button>
+                <h3>User Command History</h3>
+                <div className="history-list">
+                    {historyLoading ? (
+                        <p>Loading history...</p>
+                    ) : historyError ? (
+                        <div>
+                            <p className="history-error-text">Could not load history: {historyError}</p>
+                            <button
+                                className="history-retry-btn"
+                                onClick={fetchHistory}
+                            >
+                                Retry
+                            </button>
+                        </div>
+                    ) : history.length === 0 ? (
+                        <p>No history found.</p>
+                    ) : (
+                        <ul>
+                            {history.map((cmd, idx) => (
+                                <li key={idx} title={cmd}>{cmd}</li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
+                {/* Clear button at bottom */}
+                <button className="history-clear-btn" onClick={clearHistory}>
+                    Clear History
+                </button>
+            </div>
+        )}
+    </div>
+);
 }
 
 export default Home;

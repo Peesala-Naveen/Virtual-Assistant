@@ -4,7 +4,8 @@ export const userDataContext = createContext();
 
 
 function UserContext({ children }) {
-    const serverURL = import.meta.env.VITE_BACKEND_URL;
+    const serverURL = import.meta.env.VITE_BACKEND_URL || "https://virtual-assistant-backend-w5hv.onrender.com";
+    console.log("Server URL:", serverURL);
     const [userData, setUserData] = useState(null);
     const [backendImage, setBackendImage] = useState(null); // File or null
     const [selectedImage, setSelectedImage] = useState(null); // url string
@@ -12,6 +13,10 @@ function UserContext({ children }) {
     const didFetchRef = useRef(false); // prevent duplicate fetches in StrictMode
 
     const handleCurrentUser = async () => {
+        if (!serverURL) {
+            console.error("Backend URL missing");
+            return;
+        }
         if (didFetchRef.current) return; // already attempted
         didFetchRef.current = true;
 
