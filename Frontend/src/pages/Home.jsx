@@ -12,7 +12,7 @@ function Home() {
     const navigate = useNavigate();
     if (!serverURL) {
         console.error("Server URL is not defined");
-        return;
+
     }
     const assistantName = (userData?.assistantName || "Your Assistant").trim();
     const assistantImage = userData?.assistantImage || selectedImage || null;
