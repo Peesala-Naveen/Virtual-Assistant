@@ -76,5 +76,3 @@ export default function UserContext({ children }) {
         </userDataContext.Provider>
     )
 }
-
-export default UserContext
