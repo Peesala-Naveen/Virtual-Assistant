@@ -10,7 +10,7 @@ import { userDataContext } from "./context/UserContext.jsx"
 
 
 function App() {
-  const { userData } = useContext(UserContext);
+  const { userData } = useContext(userDataContext);
   return (
     <Routes>
       <Route path="/" element={(userData?.assistantImage && userData?.assistantName) ? <Home /> : <Navigate to="/customize" />} />
